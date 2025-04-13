@@ -1,0 +1,26 @@
+﻿@model ProductDto
+
+@{
+    ViewData["Title"] = "Delete Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Are you sure you want to delete this product?</h2>
+
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Price:</strong> @Model.Price</p>
+<p><strong>Stock:</strong> @Model.Stock</p>
+
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <p><img src="@Model.ImageUrl" alt="@Model.Name" width="200"></p>
+}
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="adminDisplay" class="btn btn-secondary">Cancel</a>
+</form>
+
+

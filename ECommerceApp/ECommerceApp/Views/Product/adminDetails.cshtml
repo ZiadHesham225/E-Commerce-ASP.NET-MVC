@@ -1,0 +1,100 @@
+﻿@model ProductDto
+@{
+    ViewData["Title"] = "Product Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .product-image-container {
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+    }
+
+    .product-image {
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    }
+
+    .product-image:hover {
+    transform: scale(1.05);
+    }
+
+    .card-header {
+    padding: 1.25rem;
+    }
+
+    .product-details h5 {
+    margin-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">@Model.Name</h2>
+                    @if(Model.Stock == 0)
+                    {
+                        <span class="badge bg-danger p-2">
+                            Out of Stock
+                        </span>
+                    }
+                    else if(Model.Stock <= 10){
+					<span class="badge bg-warning p-2">
+						Low Stock
+					</span>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="col-md-4 mb-4">
+                                <div class="product-image-container text-center">
+                                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm product-image">
+                                </div>
+                            </div>
+                        }
+                        <div class="@(!string.IsNullOrEmpty(Model.ImageUrl) ? "col-md-8" : "col-12")">
+                            <div class="product-details">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <h5 class="text-muted">Price</h5>
+                                        <p class="h4 text-primary">@Model.Price.ToString("C")</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 class="text-muted">Stock</h5>
+                                        <p class="h4">@Model.Stock</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 class="text-muted">Category</h5>
+                                        <p class="h4">@Model.CategoryName</p>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <h5 class="text-muted">Description</h5>
+                                    <p class="lead">@Model.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-action="adminDisplay" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to List
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="bi bi-pencil me-2"></i>Edit Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

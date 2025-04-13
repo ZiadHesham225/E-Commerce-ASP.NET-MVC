@@ -1,0 +1,40 @@
+﻿@model UserRoleViewModel
+@{
+    ViewData["Title"] = "AssignRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Manage Roles for " + Model.UserName;
+}
+
+<h2 class="mb-3">Manage Roles for <span class="text-primary fw-bold">@Model.UserName</span></h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Assign New Roles</h4>
+        <form asp-action="AssignRole" method="post">
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <select name="roles" class="form-control" multiple>
+                @foreach (var role in Model.UnassignedRoles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-success mt-2">Assign Selected Roles</button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Remove Assigned Roles</h4>
+        <form asp-action="RemoveRoles" method="post">
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <select name="roles" class="form-control" multiple>
+                @foreach (var role in Model.AssignedRoles)
+                {
+                    <option value="@role">@role</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-danger mt-2">Remove Selected Roles</button>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,197 @@
+﻿@model ECommerceApp.ViewModels.DashboardViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Dashboard";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<div class="container mt-4">
+    <h2 class="m-4"><i class="fas fa-tachometer-alt text-primary"></i> Admin Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <h5>Total Users</h5>
+                <h3>@Model.TotalUsers</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <h5>Orders Today</h5>
+                <h3>@Model.OrdersToday</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <h5>Revenue</h5>
+                <h3>$@Model.Revenue.ToString("N0")</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 shadow">
+                <h5>Pending Orders</h5>
+                <h3>@Model.PendingOrders</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card p-3 shadow">
+                <h5> <i class="fas fa-chart-line text-primary"></i> Sales Growth</h5>
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-3 shadow">
+                <h5> <i class="fas fa-shopping-cart text-warning"></i> Orders Overview</h5>
+                <canvas id="ordersChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card p-3 shadow">
+                <h5> <i class="fa-solid fa-fire text-warning"></i> Top Selling Products</h5>
+                <ul class="list-group">
+                    @foreach (var product in Model.TopSellingProducts)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            @product.ProductName <span class="badge bg-success">$@product.TotalSales</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <h5> <i class="fas fa-shopping-cart text-warning"></i> Recent Orders</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.CustomerName</td>
+                            <td>
+                                <span class="badge @(order.Status == "Shipped" ? "bg-primary" : order.Status == "Pending" ? "bg-warning" : "bg-success")">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td>$@order.TotalPrice</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary toggle-details" data-order-id="@order.Id">
+                                    <i class="fa fa-chevron-down"></i> Details
+                                </button>
+                            </td>
+                        <tr class="order-details" id="details-@order.Id" style="display: none;">
+                            <td colspan="5">
+                                <div class="p-3 border rounded">
+                                    <h6 class="mb-3">Order Items</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach (var item in order.orderDetails)
+                                                    {
+                                                    <tr class="align-middle">
+                                                        <td style="width: 80px;">
+                                                            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                                        </td>
+                                                        <td>
+                                                                @if (item.Product != null)
+                                                                {
+                                                                <a href="/Product/Details/@item.ProductId">@item.Product.Name</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                <span>Product Unavailable</span>
+                                                                }
+                                                        </td>
+                                                        <td>$@item.Price.ToString("F2")</td>
+                                                        <td>@item.Quantity</td>
+                                                        <td>$@((item.Price * item.Quantity).ToString("F2"))</td>
+                                                    </tr>
+                                                    }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-details');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderId = this.getAttribute('data-order-id');
+                    const detailsDiv = document.getElementById(`details-${orderId}`);
+
+                    if (detailsDiv.style.display === 'none') {
+                        detailsDiv.style.display = 'table-row';
+                        this.querySelector('i').classList.remove('fa-chevron-down');
+                        this.querySelector('i').classList.add('fa-chevron-up');
+                    } else {
+                        detailsDiv.style.display = 'none';
+                        this.querySelector('i').classList.remove('fa-chevron-up');
+                        this.querySelector('i').classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        });
+    var salesCtx = document.getElementById('salesChart').getContext('2d');
+    var salesChart = new Chart(salesCtx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.SalesData.Months)), 
+            datasets: [{
+                label: 'Sales ($)',
+                data: @Html.Raw(Json.Serialize(Model.SalesData.Values)), 
+                borderColor: 'blue',
+                fill: false
+            }]
+        }
+    });
+
+    var ordersCtx = document.getElementById('ordersChart').getContext('2d');
+    var ordersChart = new Chart(ordersCtx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.OrdersData.Months)),
+            datasets: [{
+                label: 'Orders',
+                data: @Html.Raw(Json.Serialize(Model.OrdersData.Values)), 
+                backgroundColor: 'green'
+            }]
+        }
+    });
+</script>
+

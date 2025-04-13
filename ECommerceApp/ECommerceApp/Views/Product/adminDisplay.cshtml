@@ -1,0 +1,72 @@
+﻿@model PaginatedList<ProductDto>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Products</h2>
+<a asp-action="Create" class="btn btn-primary mb-3">Add Product</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@product.ImageUrl" alt="@product.Name" width="50">
+                    }
+                </td>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Stock</td>
+                <td>@product.CategoryName</td>
+                <td>
+                    <a asp-action="adminDetails" asp-route-id="@product.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Transactions Pagination">
+    <ul class="pagination justify-content-center mt-3">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link text-white bg-primary" href="?pageNumber=@(Model.PageIndex - 1)">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                <a class="page-link @(Model.PageIndex == i ? "bg-primary text-white" : "")"
+                   href="?pageNumber=@i">@i</a>
+            </li>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link text-white bg-primary" href="?pageNumber=@(Model.PageIndex + 1)">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+

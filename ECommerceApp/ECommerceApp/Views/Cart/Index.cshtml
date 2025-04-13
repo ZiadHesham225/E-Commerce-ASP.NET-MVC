@@ -1,0 +1,129 @@
+﻿@model IEnumerable<CartItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+    decimal cartTotal = 0;
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Your Shopping Cart</h1>
+    @if (TempData["CartErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["CartErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Your cart is empty. <a asp-controller="Product" asp-action="Index">Continue shopping</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var itemTotal = (item.Product?.Price ?? 0) * item.Quantity;
+                        cartTotal += itemTotal;
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.Product?.ImageUrl" alt="@item.Product?.Name" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div>
+                                        <h5>@item.Product?.Name</h5>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@item.Product?.Price.ToString("C")</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary me-2 update-quantity" data-product-id="@item.ProductId" data-operation="decrement" @(item.Quantity <= 1 ? "disabled" : "")>
+                                        <i class="bi bi-dash"></i>
+                                    </button>
+                                    <span class="mx-2 quantity" data-product-id="@item.ProductId">@item.Quantity</span>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary ms-2 update-quantity" data-product-id="@item.ProductId" data-operation="increment" @(item.Quantity >= item.Product.Stock ? "disabled" : "")>
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="item-total" data-product-id="@item.ProductId">@itemTotal.ToString("C")</td>
+                            <td>
+                                <form asp-action="Remove" asp-route-productId="@item.ProductId" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">Cart Total:</td>
+                        <td class="fw-bold cart-total">@cartTotal.ToString("C")</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> Continue Shopping
+            </a>
+            <div>
+                <form asp-action="Clear" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger me-2">
+                        <i class="bi bi-cart-x"></i> Clear Cart
+                    </button>
+                </form>
+                <a asp-controller="Checkout" asp-action="Index" class="btn btn-success">
+                    <i class="bi bi-credit-card"></i> Proceed to Checkout
+                </a>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+<script>
+	$(document).ready(function () {
+		$(".update-quantity").click(function () {
+			var productId = $(this).data("product-id");
+			var operation = $(this).data("operation");
+			var quantityElement = $(".quantity[data-product-id='" + productId + "']");
+			var itemTotalElement = $(".item-total[data-product-id='" + productId + "']");
+            var cartTotalElement = $(".cart-total");
+            var decrementButton = $(".update-quantity[data-product-id='" + productId + "'][data-operation='decrement']");
+            var incrementButton = $(".update-quantity[data-product-id='" + productId + "'][data-operation='increment']");
+			$.ajax({
+				url: "/Cart/UpdateQuantity",
+				type: "POST",
+				data: {
+					productId: productId,
+					operation: operation
+				},
+				success: function (response) {
+					quantityElement.text(response.quantity);
+					itemTotalElement.text(response.itemTotal);
+					cartTotalElement.text(response.cartTotal);
+                    decrementButton.prop('disabled', response.quantity <= 1);
+                    incrementButton.prop('disabled', response.quantity >= response.stock);
+                        refreshCartCount();
+				}
+			});
+		});
+	});
+</script>
+}

@@ -1,0 +1,365 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ECommerceApp.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ECommerceApp.0w9ogem2ax.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\css\\Home.css",
+      "PackagePath": "staticwebassets\\css\\Home.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\basketball.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\basketball.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\coffee-table.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\coffee-table.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\garden-tools.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\garden-tools.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\headphones.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\headphones.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\hoodie.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\hoodie.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\jeans.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\jeans.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\laptop.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\laptop.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\programming-book.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\programming-book.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\scifi-book.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\scifi-book.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\smartphone.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\smartphone.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\tshirt.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\tshirt.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\products\\yoga-mat.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\yoga-mat.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\048d3562-5054-460c-b1c1-21539a3b8ca7.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\048d3562-5054-460c-b1c1-21539a3b8ca7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\1070326f-e548-4c65-b5b4-2c29a741e97e.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\1070326f-e548-4c65-b5b4-2c29a741e97e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\3e082b73-b33d-430c-8710-c703b3566c74.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\3e082b73-b33d-430c-8710-c703b3566c74.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\4d23af88-fdd3-44d8-ab31-60825720127a.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\4d23af88-fdd3-44d8-ab31-60825720127a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\539650e0-900f-4357-92a6-f40bc23867a5.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\539650e0-900f-4357-92a6-f40bc23867a5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\8d51de5b-f03d-4dd2-a000-04d54fcf8bae.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\8d51de5b-f03d-4dd2-a000-04d54fcf8bae.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\b3b1047d-573c-47ad-8439-a365b8d0d86a.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\b3b1047d-573c-47ad-8439-a365b8d0d86a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\d1a1d678-1691-495b-a6e1-b06883c56f22.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\d1a1d678-1691-495b-a6e1-b06883c56f22.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\default-user.png",
+      "PackagePath": "staticwebassets\\images\\users\\default-user.png"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\images\\users\\ed13f957-324c-45fd-8a6f-b4ae75fd1d57.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\ed13f957-324c-45fd-8a6f-b4ae75fd1d57.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\js\\Home.js",
+      "PackagePath": "staticwebassets\\js\\Home.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\hesha\\Documents\\CSharp\\Final_MVC_project\\ECommerceApp\\ECommerceApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ECommerceApp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ECommerceApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.ECommerceApp.props",
+      "PackagePath": "build\\ECommerceApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.ECommerceApp.props",
+      "PackagePath": "buildMultiTargeting\\ECommerceApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.ECommerceApp.props",
+      "PackagePath": "buildTransitive\\ECommerceApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

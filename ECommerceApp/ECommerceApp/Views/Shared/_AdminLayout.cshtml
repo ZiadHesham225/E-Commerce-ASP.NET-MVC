@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+    var profilePicture = User.Claims.FirstOrDefault(c => c.Type == "ProfilePicture")?.Value ?? "/images/default-user.png";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .side-bar a {
+            border-bottom: 1px solid #ccc;
+        }
+
+            .side-bar a:hover {
+                background-color: #ddd;
+            }
+
+        .submenu a {
+            padding-left: 45px;
+            font-size: 14px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+        }
+
+            .nav-link i {
+                width: 25px;
+                text-align: center;
+                font-size: 18px;
+            }
+
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column vh-100">
+    <nav class="navbar navbar-light bg-white border-bottom px-3 fixed-top">
+        <div class="d-flex justify-content-center align-items-center gap-4">
+            <h5 class="d-flex align-items-center gap-2 mb-0">
+                E-Commerce
+            </h5>
+            <span class="text-danger fw-bold fs-5">Admin</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <a href="/User/Profile" class="d-flex align-items-center text-decoration-none me-3">
+                <div class="me-2">
+                    <img src="@profilePicture" alt="Profile" class="rounded-circle border border-2 border-light"
+                         style="width: 32px; height: 32px; object-fit: cover; box-shadow: 0 0 3px rgba(255,255,255,0.4);">
+                </div>
+                <span class="text-black me-3">@(User.Identity.Name)</span>
+            </a>
+            <a href="@Url.Action("SignOut","Account")" class="btn btn-danger">Log Out</a>
+        </div>
+    </nav>
+
+    <div class="d-flex flex-grow-1">
+        <div class="bg-light py-3 side-bar" style="width: 250px;">
+            <a href="@Url.Action("Profile","User")" class="nav-link text-dark text-decoration-none">
+                <i class="fa-solid fa-user text-primary"></i>
+                <span class="ms-2">Profile</span>
+            </a>
+            <a href="@Url.Action("Dashboard","Admin")" class="nav-link text-dark text-decoration-none">
+                <i class="fas fa-tachometer-alt text-primary"></i>
+                <span class="ms-2">Dashboard</span>
+            </a>
+
+            <a href="@Url.Action("Index","User")" class="nav-link text-dark text-decoration-none">
+                <i class="fas fa-users text-success"></i>
+                <span class="ms-2">Users</span>
+            </a>
+
+            <!-- Orders with dropdown -->
+            <a class="nav-link text-dark text-decoration-none"
+               data-bs-toggle="collapse" href="#ordersMenu" role="button">
+                <i class="fas fa-shopping-cart text-warning"></i>
+                <span class="ms-2">Orders</span>
+                <i class="fas fa-chevron-down ms-auto"></i>
+            </a>
+            <div class="collapse submenu" id="ordersMenu">
+                <a href="@Url.Action("AllOrders","Order")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-list text-success"></i>
+                    <span class="ms-2">All Orders</span>
+                </a>
+                <a href="@Url.Action("OrdersByStatus", "Order", new { status = "Pending" })" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-clock text-warning"></i>
+                    <span class="ms-2">Pending Orders</span>
+                </a>
+                <a href="@Url.Action("OrdersByStatus", "Order", new { status = "Shipped" })" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-truck text-primary"></i>
+                    <span class="ms-2">Shipped Orders</span>
+                </a>
+            </div>
+
+            <!-- Transactions -->
+            <a href="@Url.Action("Index","Transaction")" class="nav-link text-dark text-decoration-none">
+                <i class="fas fa-dollar-sign text-info"></i>
+                <span class="ms-2">Transactions</span>
+            </a>
+
+            <!-- Roles with dropdown -->
+            <a class="nav-link text-dark text-decoration-none"
+               data-bs-toggle="collapse" href="#rolesMenu" role="button">
+                <i class="fas fa-user-shield text-danger"></i>
+                <span class="ms-2">Roles</span>
+                <i class="fas fa-chevron-down ms-auto"></i>
+            </a>
+            <div class="collapse submenu" id="rolesMenu">
+                <a href="@Url.Action("ManageRoles","Role")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-plus text-danger"></i>
+                    <span class="ms-2">Manage Roles</span>
+                </a>
+                <a href="@Url.Action("Index","Role")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-user-tag text-danger"></i>
+                    <span class="ms-2">Manage User Roles</span>
+                </a>
+            </div>
+
+            <!-- Products with dropdown -->
+            <a class="nav-link text-dark text-decoration-none"
+               data-bs-toggle="collapse" href="#productsMenu" role="button">
+                <i class="fas fa-box text-secondary"></i>
+                <span class="ms-2">Products</span>
+                <i class="fas fa-chevron-down ms-auto"></i>
+            </a>
+            <div class="collapse submenu" id="productsMenu">
+                <a href="@Url.Action("Create","Product")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-plus text-secondary"></i>
+                    <span class="ms-2">Add Product</span>
+                </a>
+                <a href="@Url.Action("adminDisplay","Product")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-boxes text-secondary"></i>
+                    <span class="ms-2">Show All Products</span>
+                </a>
+            </div>
+            <!-- Categories with dropdown -->
+            <a class="nav-link text-dark text-decoration-none"
+               data-bs-toggle="collapse" href="#categoriesMenu" role="button">
+                <i class="fas fa-tags text-secondary"></i>
+                <span class="ms-2">Categories</span>
+                <i class="fas fa-chevron-down ms-auto"></i>
+            </a>
+            <div class="collapse submenu" id="categoriesMenu">
+                <a href="@Url.Action("Create","Category")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-tag text-secondary"></i>
+                    <span class="ms-2">Add Category</span>
+                </a>
+                <a href="@Url.Action("Index","Category")" class="nav-link text-dark text-decoration-none">
+                    <i class="fas fa-list-ul text-secondary"></i>
+                    <span class="ms-2">Show All Categories</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="flex-grow-1 p-4">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

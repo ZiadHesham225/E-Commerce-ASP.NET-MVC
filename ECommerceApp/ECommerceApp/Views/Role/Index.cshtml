@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ECommerceApp.DTOs.UserDto>
+@{
+    ViewData["Title"] = "Manage Users Roles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search users..." value="@Context.Request.Query["searchTerm"]">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>
+                    <a href="@Url.Action("AssignRole", "Role", new { userId = user.Id })" class="btn btn-primary">
+                        Manage Roles
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

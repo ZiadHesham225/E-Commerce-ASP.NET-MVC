@@ -1,0 +1,339 @@
+﻿@model IEnumerable<ECommerceApp.Models.Product>
+@{
+    ViewData["Title"] = "Products Page";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --background-color: #f4f6f7;
+        --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.3s;
+    }
+
+    body {
+        background-color: var(--background-color);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+    }
+
+    .input-group .form-control {
+        border-radius: 8px 0 0 8px;
+        border-color: #e0e0e0;
+    }
+
+    .input-group .btn-primary {
+        border-radius: 0 8px 8px 0;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        transition: background-color var(--transition-speed) ease;
+    }
+
+        .input-group .btn-primary:hover {
+            background-color: #2980b9;
+        }
+    .product-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all var(--transition-speed) ease;
+        box-shadow: var(--card-shadow);
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card .card-body {
+            padding: 1.25rem;
+        }
+
+        .product-card .card-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card .card-text {
+            color: #6c757d;
+        }
+
+        .product-card .card-footer {
+            background-color: transparent;
+            border: none;
+            padding: 1rem;
+        }
+
+        .product-card .add-to-cart {
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+            .product-card .add-to-cart:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+    #filterBox {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid #e0e0e0;
+    }
+
+        #filterBox .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+    .form-check-input:checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .pagination {
+        --bs-pagination-color: var(--primary-color);
+        --bs-pagination-active-bg: var(--primary-color);
+        --bs-pagination-active-border-color: var(--primary-color);
+    }
+
+        .pagination .page-link {
+            border-radius: 6px;
+            margin: 0 4px;
+            color: var(--primary-color);
+            transition: all var(--transition-speed) ease;
+        }
+
+            .pagination .page-link:hover {
+                background-color: rgba(52, 152, 219, 0.1);
+            }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+    .product-card {
+        margin-bottom: 1rem;
+    }
+</style>
+<div class="container mt-4">
+    <form asp-action="Index" method="get" id="filterForm">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" name="SearchQuery" class="form-control" placeholder="Search products..." value="@Context.Request.Query["SearchQuery"]" />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex gap-2 align-items-center">
+                    <select name="SortBy" class="form-select auto-submit">
+                        <!option value="name" @(Context.Request.Query["SortBy"] == "name" ? "selected" : "")>Name</!option>
+                        <!option value="price" @(Context.Request.Query["SortBy"] == "price" ? "selected" : "")>Price</!option>
+                    </select>
+                    <div class="btn-group">
+                        <input type="radio" class="btn-check auto-submit" name="Descending" id="asc" value="false" 
+                               @(Context.Request.Query["Descending"] != "true" ? "checked" : "") />
+                        <label class="btn btn-outline-secondary" for="asc">Asc</label>
+                        <input type="radio" class="btn-check auto-submit" name="Descending" id="desc" value="true" 
+                               @(Context.Request.Query["Descending"] == "true" ? "checked" : "") />
+                        <label class="btn btn-outline-secondary" for="desc">Desc</label>
+                    </div>
+                    <button type="button" id="filterButton" class="btn btn-secondary d-flex gap-2">
+                        <i class="bi bi-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="filterBox" class="card mb-4" style="display: none;">
+            <div class="card-body">
+                <h3 class="card-title">Filters</h3>
+                <div class="mb-3">
+                    <h4>Categories</h4>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="CategoryId" id="allCategories" value="" 
+                                   @(string.IsNullOrEmpty(Context.Request.Query["CategoryId"]) ? "checked" : "") />
+                            <label class="form-check-label" for="allCategories">All Categories</label>
+                        </div>
+                        @foreach (var category in ViewBag.categories)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CategoryId" id="category-@category.Id" 
+                                       value="@category.Id" 
+                                       @(Context.Request.Query["CategoryId"] == category.Id.ToString() ? "checked" : "") />
+                                <label class="form-check-label" for="category-@category.Id">@category.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h4>Price Range</h4>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" name="MinPrice" class="form-control" placeholder="Min Price" 
+                                   value="@Context.Request.Query["MinPrice"]" />
+                        </div>
+                        <div class="col">
+                            <input type="number" name="MaxPrice" class="form-control" placeholder="Max Price" 
+                                   value="@Context.Request.Query["MaxPrice"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="InStock" id="inStock" value="true"
+                        @(Context.Request.Query["InStock"] == "true" ? "checked" : "") />
+                        <label class="form-check-label" for="inStock">In Stock Only</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Apply</button>
+            </div>
+        </div>
+        <input type="hidden" name="page" id="pageInput" value="@ViewBag.currentPage" />
+    </form>
+
+
+    <div id="productGrid" class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var product in Model)
+        {
+            int cartQuantity = 0;
+            if (ViewBag.CartQuantities != null && ViewBag.CartQuantities.ContainsKey(product.Id))
+            {
+                cartQuantity = ViewBag.CartQuantities[product.Id];
+            }
+            int availableStock = product.Stock - cartQuantity;
+
+            <div class="col">
+                <div class="card product-card h-100" onclick="window.location.href='@Url.Action("Details", "Product", new { id = product.Id })'">
+                    <img src="@(product.ImageUrl)" class="card-img-top" alt="@product.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Price.ToString("C")</p>
+                        <p class="card-text"><small class="text-muted">Stock: @product.Stock</small></p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center bg-white border-top-0">
+                        <form asp-action="Add" asp-controller="Cart" method="post">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <button type="submit" class="btn btn-primary btn-sm add-to-cart"
+                                    @(availableStock <= 0 ? "disabled" : "")>
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= ViewBag.totalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.currentPage ? "active" : "")">
+                    <a href="#" class="page-link" data-page="@i">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        function initializePagination() {
+            const totalPages = @ViewBag.totalPages;
+            updatePagination(@ViewBag.currentPage, totalPages);
+        }
+
+        function updatePagination(currentPage, totalPages) {
+            $('.pagination').empty();
+
+            $('.pagination').append(`
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a href="#" class="page-link" data-page="${currentPage - 1}" ${currentPage === 1 ? 'tabindex="-1" aria-disabled="true"' : ''}>Previous</a>
+                </li>
+            `);
+
+            const maxVisiblePages = 5;
+            let startPage = 1;
+            let endPage = totalPages;
+
+            if (totalPages > maxVisiblePages) {
+                const halfVisiblePages = Math.floor(maxVisiblePages / 2);
+
+                if (currentPage <= halfVisiblePages) {
+                    startPage = 1;
+                    endPage = maxVisiblePages;
+                } else if (currentPage > totalPages - halfVisiblePages) {
+                    startPage = totalPages - maxVisiblePages + 1;
+                    endPage = totalPages;
+                } else {
+                    startPage = currentPage - halfVisiblePages;
+                    endPage = currentPage + halfVisiblePages;
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                $('.pagination').append(`
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a href="#" class="page-link" data-page="${i}">${i}</a>
+                    </li>
+                `);
+            }
+
+            $('.pagination').append(`
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a href="#" class="page-link" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'tabindex="-1" aria-disabled="true"' : ''}>Next</a>
+                </li>
+            `);
+        }
+
+        initializePagination();
+
+        $('body').on('click', '.page-link', function(e) {
+            e.preventDefault();
+            if (!$(this).parent().hasClass('disabled')) {
+                const page = $(this).data('page');
+                $('#pageInput').val(page);
+                $('#filterForm').submit();
+            }
+        });
+				$('.add-to-cart').on('click', () => {
+                   refreshCartCount();
+                });
+        $('#filterForm').on('submit', function() {
+            if (!$('#pageInput').val()) {
+                $('#pageInput').val(1);
+            }
+        });
+        $('#filterButton').on('click', function() {
+            $('#filterBox').toggle();
+        });
+            $('.auto-submit').on('change', function() {
+            $('#pageInput').val(1);
+            $('#filterForm').submit();
+        });
+    });
+</script>
+}
