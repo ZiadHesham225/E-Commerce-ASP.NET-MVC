@@ -70,12 +70,7 @@ namespace ECommerceApp.Services
 
             if (userDto.ImageFile != null)
             {
-                if (!string.IsNullOrEmpty(user.ImageUrl))
-                {
-                    _imageService.DeleteImage(user.ImageUrl);
-                }
-
-                user.ImageUrl = await _imageService.SaveImageAsync(userDto.ImageFile, "users");
+                user.ImageUrl = await _imageService.UpdateImageAsync(userDto.ImageFile, user.ImageUrl, "users");
             }
 
             await _userManager.UpdateAsync(user);

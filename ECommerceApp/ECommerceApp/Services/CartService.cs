@@ -81,8 +81,7 @@ namespace ECommerceApp.Services
             var cartItem = await _cartItemRepository.GetCartItemAsync(cart.Id, productId);
             if (cartItem != null)
             {
-                cart.ItemCount -= cartItem.Quantity;
-                if (cart.ItemCount < 0) cart.ItemCount = 0;
+                UpdateCartItemCount(cart, -cartItem.Quantity);
 
                 _cartRepository.Update(cart);
                 await _cartItemRepository.DeleteAsync(cartItem.Id);
@@ -105,8 +104,7 @@ namespace ECommerceApp.Services
             if (cartItem != null)
             {
                 int difference = quantity - cartItem.Quantity;
-                cart.ItemCount += difference;
-                if (cart.ItemCount < 0) cart.ItemCount = 0;
+                UpdateCartItemCount(cart, difference);
 
                 cartItem.Quantity = quantity;
                 _cartItemRepository.Update(cartItem);
@@ -115,6 +113,12 @@ namespace ECommerceApp.Services
             }
 
             return true;
+        }
+
+        private static void UpdateCartItemCount(Cart cart, int adjustment)
+        {
+            cart.ItemCount += adjustment;
+            if (cart.ItemCount < 0) cart.ItemCount = 0;
         }
 
         public async Task<int> GetProductQuantityInCart(string userId, int productId)

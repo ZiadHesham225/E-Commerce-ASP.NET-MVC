@@ -35,5 +35,17 @@
             var filePath = Path.Combine(_environment.WebRootPath, imageUrl.TrimStart('/'));
             if (File.Exists(filePath)) File.Delete(filePath);
         }
+
+        public async Task<string> UpdateImageAsync(IFormFile newImageFile, string currentImageUrl, string folderName)
+        {
+            if (newImageFile == null) return currentImageUrl;
+
+            if (!string.IsNullOrEmpty(currentImageUrl))
+            {
+                DeleteImage(currentImageUrl);
+            }
+
+            return await SaveImageAsync(newImageFile, folderName);
+        }
     }
 }

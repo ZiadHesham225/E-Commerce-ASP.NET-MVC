@@ -65,14 +65,12 @@ namespace ECommerceApp.Services
 
         public IEnumerable<Product> GetSortedProducts(IEnumerable<Product> products, string sortBy, bool descending = false)
         {
-            products = sortBy.ToLower() switch
+            return sortBy.ToLower() switch
             {
                 "name" => descending ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name),
                 "price" => descending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price),
                 _ => products
             };
-
-            return products;
         }
 
         public IEnumerable<Product> GetPaginatedProducts(IEnumerable<Product> products, int pageNumber, int pageSize)
@@ -190,10 +188,10 @@ namespace ECommerceApp.Services
             product.Stock = productDto.Stock;
             product.CategoryId = productDto.CategoryId;
             product.Description = productDto.Description;
+            
             if (productDto.ImageFile != null)
             {
-                if (!string.IsNullOrEmpty(product.ImageUrl)) _imageService.DeleteImage(product.ImageUrl);
-                product.ImageUrl = await _imageService.SaveImageAsync(productDto.ImageFile, "products");
+                product.ImageUrl = await _imageService.UpdateImageAsync(productDto.ImageFile, product.ImageUrl, "products");
             }
 
             _productRepository.Update(product);

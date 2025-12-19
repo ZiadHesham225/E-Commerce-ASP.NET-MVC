@@ -59,7 +59,7 @@ namespace ECommerceApp.Services
         public async Task<List<UserDto>> GetUsersByRoleAsync(string roleName)
         {
             var users = await _userManager.GetUsersInRoleAsync(roleName);
-            return users.Select(u => new UserDto { Id = u.Id, UserName = u.UserName, Email = u.Email, FullName = u.FullName }).ToList();
+            return ConvertUsersToDto(users);
         }
         public async Task<bool> AddRoleAsync(string roleName)
         {
@@ -79,6 +79,17 @@ namespace ECommerceApp.Services
 
             var result = await _roleManager.DeleteAsync(role);
             return result.Succeeded;
+        }
+
+        private static List<UserDto> ConvertUsersToDto(IEnumerable<User> users)
+        {
+            return users.Select(u => new UserDto
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Email = u.Email,
+                FullName = u.FullName
+            }).ToList();
         }
     }
 }

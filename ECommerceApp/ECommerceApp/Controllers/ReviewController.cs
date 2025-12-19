@@ -14,15 +14,23 @@ namespace ECommerceApp.Controllers
             _reviewService = reviewService;
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> AddReview(int productId, int rating, string? comment)
+        private IActionResult? EnsureUserAuthenticated(out string userId)
         {
-            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
                 return Unauthorized();
             }
+            return null;
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddReview(int productId, int rating, string? comment)
+        {
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             bool done = await _reviewService.AddReviewAsync(userId, productId, rating, comment);
             if (!done)
             {
@@ -52,14 +60,12 @@ namespace ECommerceApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> UpdateReview(int reveiwId, int rating, string? comment)
+        public async Task<IActionResult> UpdateReview(int reviewId, int rating, string? comment)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
-            bool done = await _reviewService.UpdateReviewAsync(userId, reveiwId, rating, comment);
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
+            bool done = await _reviewService.UpdateReviewAsync(userId, reviewId, rating, comment);
             if (!done)
             {
                 return BadRequest();
@@ -71,11 +77,9 @@ namespace ECommerceApp.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteReview(int reviewId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             bool done = await _reviewService.DeleteReviewAsync(userId, reviewId);
             if (!done)
             {
@@ -87,11 +91,9 @@ namespace ECommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> GetUserReviewsForProduct(int productId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             var reviews = await _reviewService.GetUserReviewsForProductAsync(userId, productId);
             return Json(reviews);
         }

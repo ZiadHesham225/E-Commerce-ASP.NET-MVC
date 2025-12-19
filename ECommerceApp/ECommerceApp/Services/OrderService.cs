@@ -29,9 +29,7 @@ namespace ECommerceApp.Services
         }
         public async Task<Order> PlaceOrderAsync(Order order)
         {
-            var productIds = order.OrderDetails.Select(od => od.ProductId).ToList();
-            var products = await _productRepository.GetProductsByIdsAsync(productIds);
-            var productDict = products.ToDictionary(p => p.Id);
+            var productDict = await GetProductsDictionaryAsync(order.OrderDetails.Select(od => od.ProductId));
 
             foreach (var item in order.OrderDetails)
             {
@@ -71,9 +69,7 @@ namespace ECommerceApp.Services
             var order = await _orderRepository.GetOrderWithOrderDetails(orderId);
             if (order == null || order.Status == "Shipped" || order.Status == "Delivered") return false;
 
-            var productIds = order.OrderDetails.Select(od => od.ProductId).ToList();
-            var products = await _productRepository.GetProductsByIdsAsync(productIds);
-            var productDict = products.ToDictionary(p => p.Id);
+            var productDict = await GetProductsDictionaryAsync(order.OrderDetails.Select(od => od.ProductId));
 
             foreach (var item in order.OrderDetails)
             {
@@ -87,6 +83,12 @@ namespace ECommerceApp.Services
             _orderRepository.Update(order);
             await _orderRepository.SaveAsync();
             return true;
+        }
+
+        private async Task<Dictionary<int, Product>> GetProductsDictionaryAsync(IEnumerable<int> productIds)
+        {
+            var products = await _productRepository.GetProductsByIdsAsync(productIds.ToList());
+            return products.ToDictionary(p => p.Id);
         }
         public async Task<decimal> GetRevenueAsync(DateTime? startDate = null, DateTime? endDate = null)
         {

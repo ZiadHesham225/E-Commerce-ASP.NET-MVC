@@ -21,14 +21,27 @@ namespace ECommerceApp.Controllers
             _cartRepository = cartRepository;
         }
 
-        [Authorize]
-        public async Task<IActionResult> Index()
+        private string? GetAuthenticatedUserId()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+        private IActionResult? EnsureUserAuthenticated(out string userId)
+        {
+            userId = GetAuthenticatedUserId();
             if (userId == null)
             {
                 return Unauthorized();
             }
+            return null;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             var cartItems = await _cartService.GetCartItemsAsync(userId);
             return View(cartItems);
         }
@@ -37,14 +50,11 @@ namespace ECommerceApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(int productId, int quantity = 1)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
 
-            bool result = await _cartService.AddToCartAsync(userId, productId, quantity);
-            if(!result)
+            bool success = await _cartService.AddToCartAsync(userId, productId, quantity);
+            if(!success)
             {
                 TempData["CartErrorMessage"] = "Product is out of stock.";
             }
@@ -55,11 +65,9 @@ namespace ECommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateQuantity(int productId, string operation)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             var cart = await _cartRepository.GetCartByUserIdAsync(userId);
 
             if (cart == null)
@@ -97,11 +105,8 @@ namespace ECommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> Remove(int productId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
 
             await _cartService.RemoveFromCartAsync(userId, productId);
             return RedirectToAction("Index");
@@ -111,11 +116,9 @@ namespace ECommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> Clear()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
+
             await _cartService.ClearCartAsync(userId);
             return RedirectToAction("Index");
         }
@@ -123,11 +126,8 @@ namespace ECommerceApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCartCount()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
+            if (EnsureUserAuthenticated(out var userId) is IActionResult result)
+                return result;
 
             var cart = await _cartRepository.GetCartByUserIdAsync(userId);
             int count = cart?.ItemCount ?? 0;
