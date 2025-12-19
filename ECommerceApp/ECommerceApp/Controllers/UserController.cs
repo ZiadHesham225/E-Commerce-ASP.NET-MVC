@@ -83,21 +83,18 @@ namespace ECommerceApp.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword))
             {
-                TempData["ErrorMessage"] = "Please provide both current and new passwords.";
-                return RedirectToAction("Profile");
+                return RedirectToProfileWithError("Please provide both current and new passwords.");
             }
 
             try
             {
                 await _userService.UpdateUserPasswordAsync(userId, currentPassword, newPassword);
-                TempData["SuccessMessage"] = "Password updated successfully!";
+                return RedirectToProfileWithSuccess("Password updated successfully!");
             }
             catch
             {
-                TempData["ErrorMessage"] = "Failed to update password.";
+                return RedirectToProfileWithError("Failed to update password.");
             }
-
-            return RedirectToAction("Profile");
         }
         [HttpPost]
         public async Task<IActionResult> SetPassword(string newPassword, string confirmPassword) // For External Users
@@ -106,26 +103,34 @@ namespace ECommerceApp.Controllers
 
             if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
             {
-                TempData["ErrorMessage"] = "Please provide both password fields.";
-                return RedirectToAction("Profile");
+                return RedirectToProfileWithError("Please provide both password fields.");
             }
 
             if (newPassword != confirmPassword)
             {
-                TempData["ErrorMessage"] = "Passwords do not match.";
-                return RedirectToAction("Profile");
+                return RedirectToProfileWithError("Passwords do not match.");
             }
 
             try
             {
                 await _userService.SetUserPasswordAsync(userId, newPassword);
-                TempData["SuccessMessage"] = "Password set successfully!";
+                return RedirectToProfileWithSuccess("Password set successfully!");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Failed to set password: " + ex.Message;
+                return RedirectToProfileWithError($"Failed to set password: {ex.Message}");
             }
+        }
 
+        private IActionResult RedirectToProfileWithSuccess(string message)
+        {
+            TempData["SuccessMessage"] = message;
+            return RedirectToAction("Profile");
+        }
+
+        private IActionResult RedirectToProfileWithError(string message)
+        {
+            TempData["ErrorMessage"] = message;
             return RedirectToAction("Profile");
         }
     }

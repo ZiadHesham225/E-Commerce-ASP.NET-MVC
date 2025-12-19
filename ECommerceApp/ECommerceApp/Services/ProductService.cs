@@ -55,24 +55,22 @@ namespace ECommerceApp.Services
 
         private IQueryable<Product> GetSortedProductsQuery(IQueryable<Product> query, string sortBy, bool descending = false)
         {
-            return ApplySorting(query, sortBy, descending);
+            return sortBy.ToLower() switch
+            {
+                "name" => descending ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
+                "price" => descending ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
+                _ => query
+            };
         }
 
         public IEnumerable<Product> GetSortedProducts(IEnumerable<Product> products, string sortBy, bool descending = false)
         {
-            return ApplySorting(products, sortBy, descending);
-        }
-
-        private static T ApplySorting<T>(T source, string sortBy, bool descending) where T : IEnumerable<Product>
-        {
-            var sorted = sortBy.ToLower() switch
+            return sortBy.ToLower() switch
             {
-                "name" => descending ? source.OrderByDescending(p => p.Name) : source.OrderBy(p => p.Name),
-                "price" => descending ? source.OrderByDescending(p => p.Price) : source.OrderBy(p => p.Price),
-                _ => source
+                "name" => descending ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name),
+                "price" => descending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price),
+                _ => products
             };
-
-            return (T)sorted;
         }
 
         public IEnumerable<Product> GetPaginatedProducts(IEnumerable<Product> products, int pageNumber, int pageSize)
