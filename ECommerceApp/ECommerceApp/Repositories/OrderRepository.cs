@@ -41,5 +41,10 @@ namespace ECommerceApp.Repositories
                 CustomerName = o.User.FullName ?? "Deleted User"
             }).ToListAsync();
         }
+
+        public IQueryable<Order> GetOrdersQueryable()
+        {
+            return dbSet.AsQueryable();
+        }
     }
 }

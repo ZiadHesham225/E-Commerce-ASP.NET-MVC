@@ -17,5 +17,12 @@ namespace ECommerceApp.Repositories
             var cartItem = await GetCartItemAsync(cartId, productId);
             return cartItem?.Quantity ?? 0;
         }
+
+        public async Task<Dictionary<int, int>> GetProductQuantitiesAsync(int cartId, IEnumerable<int> productIds)
+        {
+            return await dbSet
+                .Where(ci => ci.CartId == cartId && productIds.Contains(ci.ProductId))
+                .ToDictionaryAsync(ci => ci.ProductId, ci => ci.Quantity);
+        }
     }
 }

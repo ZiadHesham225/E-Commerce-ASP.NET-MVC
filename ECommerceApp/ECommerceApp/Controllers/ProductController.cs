@@ -36,11 +36,8 @@ namespace ECommerceApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                foreach (var product in paginatedProducts)
-                {
-                    int quantity = await _cartService.GetProductQuantityInCart(userId, product.Id);
-                    cartQuantities[product.Id] = quantity;
-                }
+                var productIds = paginatedProducts.Select(p => p.Id);
+                cartQuantities = await _cartService.GetProductQuantitiesInCart(userId, productIds);
             }
             ViewBag.CartQuantities = cartQuantities;
             var categories = await _categoryRepository.GetAllAsync();

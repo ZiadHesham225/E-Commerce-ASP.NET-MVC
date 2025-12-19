@@ -37,18 +37,15 @@ namespace ECommerceApp.Services
                 cartItem.Quantity += quantity;
                 _cartItemRepository.Update(cartItem);
                 _cartRepository.Update(cart);
-                await _cartItemRepository.SaveAsync();
-                await _cartRepository.SaveAsync();
             }
             else
             {
                 cart.ItemCount += quantity;
                 _cartRepository.Update(cart);
                 await _cartItemRepository.CreateAsync(new CartItem { CartId = cart.Id, ProductId = productId, Quantity = quantity });
-                await _cartItemRepository.SaveAsync();
-                await _cartRepository.SaveAsync();
             }
 
+            await _cartItemRepository.SaveAsync();
             return true;
         }
 
@@ -90,7 +87,6 @@ namespace ECommerceApp.Services
                 _cartRepository.Update(cart);
                 await _cartItemRepository.DeleteAsync(cartItem.Id);
                 await _cartItemRepository.SaveAsync();
-                await _cartRepository.SaveAsync();
             }
         }
 
@@ -116,7 +112,6 @@ namespace ECommerceApp.Services
                 _cartItemRepository.Update(cartItem);
                 _cartRepository.Update(cart);
                 await _cartItemRepository.SaveAsync();
-                await _cartRepository.SaveAsync();
             }
 
             return true;
@@ -127,6 +122,13 @@ namespace ECommerceApp.Services
             var cart = await _cartRepository.GetCartByUserIdAsync(userId);
             if (cart == null) return 0;
             return await _cartItemRepository.GetProductQuantityAsync(cart.Id, productId);
+        }
+
+        public async Task<Dictionary<int, int>> GetProductQuantitiesInCart(string userId, IEnumerable<int> productIds)
+        {
+            var cart = await _cartRepository.GetCartByUserIdAsync(userId);
+            if (cart == null) return new Dictionary<int, int>();
+            return await _cartItemRepository.GetProductQuantitiesAsync(cart.Id, productIds);
         }
     }
 }

@@ -43,5 +43,10 @@ namespace ECommerceApp.Repositories
                 .Where(p => productIds.Contains(p.Id))
                 .ToListAsync();
         }
+
+        public IQueryable<Product> GetProductsQueryable()
+        {
+            return dbSet.AsQueryable();
+        }
     }
 }

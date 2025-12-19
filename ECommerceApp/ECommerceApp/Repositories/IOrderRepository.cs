@@ -10,5 +10,6 @@ namespace ECommerceApp.Repositories
         Task<Order> GetOrderWithOrderDetails(int orderId);
         Task<IEnumerable<OrderDto>> GetOrdersWithUsersAndOrderDetailsAsync();
         Task<IEnumerable<OrderUserViewModel>> GetAllOrdersWithUsersAsync();
+        IQueryable<Order> GetOrdersQueryable();
     }
 }
