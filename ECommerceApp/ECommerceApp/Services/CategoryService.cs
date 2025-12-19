@@ -14,8 +14,7 @@ namespace ECommerceApp.Services
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            var categories = await _categoryRepository.GetAllAsync();
-            return categories.ToList();
+            return await _categoryRepository.GetAllAsync();
         }
 
         public async Task<Category> GetCategoryByIdAsync(int id)
@@ -47,11 +46,11 @@ namespace ECommerceApp.Services
                 throw new InvalidOperationException("Category name must be unique.");
             }
 
-            var newCategory = await _categoryRepository.GetByIdAsync(category.Id);
-            if (category == null) return;
+            var existingCategoryById = await _categoryRepository.GetByIdAsync(category.Id);
+            if (existingCategoryById == null) return;
 
-            category.Name = newCategory.Name;
-            _categoryRepository.Update(category);
+            existingCategoryById.Name = category.Name;
+            _categoryRepository.Update(existingCategoryById);
             await _categoryRepository.SaveAsync();
         }
 

@@ -2,6 +2,7 @@
 using ECommerceApp.Helpers;
 using ECommerceApp.Models;
 using ECommerceApp.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceApp.Services
 {
@@ -20,36 +21,46 @@ namespace ECommerceApp.Services
 
         public async Task<IEnumerable<Product>> GetFilteredProductsAsync(ProductFilterDto filter)
         {
-            var products = await _productRepository.GetAllAsync();
+            var query = _productRepository.GetProductsQueryable();
 
             if (filter.CategoryId.HasValue)
             {
-                products = products.Where(p => p.CategoryId == filter.CategoryId.Value);
+                query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
             }
 
             if (filter.MinPrice.HasValue)
             {
-                products = products.Where(p => p.Price >= filter.MinPrice.Value);
+                query = query.Where(p => p.Price >= filter.MinPrice.Value);
             }
 
             if (filter.MaxPrice.HasValue)
             {
-                products = products.Where(p => p.Price <= filter.MaxPrice.Value);
+                query = query.Where(p => p.Price <= filter.MaxPrice.Value);
             }
 
             if (filter.InStock)
             {
-                products = products.Where(p => p.Stock > 0);
+                query = query.Where(p => p.Stock > 0);
             }
 
             if (!string.IsNullOrEmpty(filter.SearchQuery))
             {
-                products = products.Where(p => p.Name.Contains(filter.SearchQuery, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(p => p.Name.Contains(filter.SearchQuery));
             }
 
-            products = GetSortedProducts(products, filter.SortBy ?? "name", filter.Descending);
+            query = GetSortedProductsQuery(query, filter.SortBy ?? "name", filter.Descending);
 
-            return products;
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Product> GetSortedProductsQuery(IQueryable<Product> query, string sortBy, bool descending = false)
+        {
+            return sortBy.ToLower() switch
+            {
+                "name" => descending ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
+                "price" => descending ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
+                _ => query
+            };
         }
 
         public IEnumerable<Product> GetSortedProducts(IEnumerable<Product> products, string sortBy, bool descending = false)
@@ -101,13 +112,14 @@ namespace ECommerceApp.Services
 
             var productIds = topSellingData.Select(p => p.ProductId).ToList();
             var products = await _productRepository.GetProductsByIdsAsync(productIds);
+            var productDict = products.ToDictionary(p => p.Id);
 
             return topSellingData
                 .Select(p => new ProductSalesDto
                 {
                     ProductId = p.ProductId,
-                    ProductName = products.FirstOrDefault(prod => prod.Id == p.ProductId)?.Name ?? "Unknown",
-                    TotalSales = products.FirstOrDefault(prod => prod.Id == p.ProductId)?.Price * p.TotalSold ?? 0
+                    ProductName = productDict.TryGetValue(p.ProductId, out var product) ? product.Name : "Unknown",
+                    TotalSales = productDict.TryGetValue(p.ProductId, out var prod) ? prod.Price * p.TotalSold : 0
                 })
                 .ToList();
         }
@@ -210,8 +222,7 @@ namespace ECommerceApp.Services
 
         public async Task<List<ProductDto>> GetOutOfStockProductsAsync()
         {
-            var products = await _productRepository.GetAllAsync();
-            return products
+            return await _productRepository.GetProductsQueryable()
                 .Where(p => p.Stock == 0)
                 .Select(p => new ProductDto
                 {
@@ -222,7 +233,7 @@ namespace ECommerceApp.Services
                     CategoryId = p.CategoryId,
                     ImageUrl = p.ImageUrl
                 })
-                .ToList();
+                .ToListAsync();
         }
     }
 }

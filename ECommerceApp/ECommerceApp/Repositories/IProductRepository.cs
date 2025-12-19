@@ -10,5 +10,6 @@ namespace ECommerceApp.Repositories
         Task<List<Product>> GetProductsByIdsAsync(List<int> productIds);
         IQueryable<ProductDto> GetProductsWithCategories();
         Task<Product> GetProducWithCategoryByIdAsync(int id);
+        IQueryable<Product> GetProductsQueryable();
     }
 }

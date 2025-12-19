@@ -6,5 +6,6 @@ namespace ECommerceApp.Repositories
     {
         Task<CartItem> GetCartItemAsync(int cartId, int productId);
         Task<int> GetProductQuantityAsync(int cartId, int productId);
+        Task<Dictionary<int, int>> GetProductQuantitiesAsync(int cartId, IEnumerable<int> productIds);
     }
 }

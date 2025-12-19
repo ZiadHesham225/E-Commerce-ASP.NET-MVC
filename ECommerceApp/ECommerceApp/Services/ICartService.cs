@@ -11,5 +11,6 @@ namespace ECommerceApp.Services
         Task ClearCartAsync(string userId);
         Task<int> GetProductQuantityInCart(string userId, int productId);
         Task<int> GetCartItemCountAsync(string userId);
+        Task<Dictionary<int, int>> GetProductQuantitiesInCart(string userId, IEnumerable<int> productIds);
     }
 }

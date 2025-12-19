@@ -29,15 +29,17 @@ namespace ECommerceApp.Services
         }
         public async Task<Order> PlaceOrderAsync(Order order)
         {
+            var productIds = order.OrderDetails.Select(od => od.ProductId).ToList();
+            var products = await _productRepository.GetProductsByIdsAsync(productIds);
+            var productDict = products.ToDictionary(p => p.Id);
+
             foreach (var item in order.OrderDetails)
             {
-                var product = await _productRepository.GetByIdAsync(item.ProductId);
-                if (product == null || product.Stock < item.Quantity)
+                if (!productDict.TryGetValue(item.ProductId, out var product) || product.Stock < item.Quantity)
                 {
                     throw new InvalidOperationException("Product is not available or stock is insufficient.");
                 }
                 product.Stock -= item.Quantity;
-
             }
 
             order.TotalPrice = order.OrderDetails.Sum(d => d.Quantity * d.Price);
@@ -69,10 +71,13 @@ namespace ECommerceApp.Services
             var order = await _orderRepository.GetOrderWithOrderDetails(orderId);
             if (order == null || order.Status == "Shipped" || order.Status == "Delivered") return false;
 
+            var productIds = order.OrderDetails.Select(od => od.ProductId).ToList();
+            var products = await _productRepository.GetProductsByIdsAsync(productIds);
+            var productDict = products.ToDictionary(p => p.Id);
+
             foreach (var item in order.OrderDetails)
             {
-                var product = await _productRepository.GetByIdAsync(item.ProductId);
-                if (product != null)
+                if (productDict.TryGetValue(item.ProductId, out var product))
                 {
                     product.Stock += item.Quantity;
                 }
@@ -85,7 +90,7 @@ namespace ECommerceApp.Services
         }
         public async Task<decimal> GetRevenueAsync(DateTime? startDate = null, DateTime? endDate = null)
         {
-            var query = await _orderRepository.GetAllAsync();
+            var query = _orderRepository.GetOrdersQueryable();
 
             if (startDate.HasValue)
             {
@@ -97,7 +102,7 @@ namespace ECommerceApp.Services
                 query = query.Where(o => o.OrderDate <= endDate.Value);
             }
 
-            return query.Sum(o => o.TotalPrice);
+            return await query.SumAsync(o => o.TotalPrice);
         }
         public async Task SaveAsync()
         {
@@ -105,14 +110,16 @@ namespace ECommerceApp.Services
         }
         public async Task<int> GetPendingOrdersCount()
         {
-            var orders = await _orderRepository.GetAllAsync();
-            return orders.Where(o => o.Status == "Pending").Count();
+            return await _orderRepository.GetOrdersQueryable()
+                .Where(o => o.Status == "Pending")
+                .CountAsync();
         }
         public async Task<int> GetOrdersCountByDate(DateTime? date = null)
         {
             date ??= DateTime.Today;
-            var orders = await _orderRepository.GetAllAsync();
-            return orders.Count(o => o.OrderDate.Date == date.Value.Date);
+            return await _orderRepository.GetOrdersQueryable()
+                .Where(o => o.OrderDate.Date == date.Value.Date)
+                .CountAsync();
         }
         public async Task<IEnumerable<OrderDto>> GetRecentOrders(int count)
         {
@@ -125,9 +132,9 @@ namespace ECommerceApp.Services
         }
         public async Task<ChartData> GetSalesDataAsync()
         {
-            var orders = await _orderRepository.GetAllAsync();
-            var sales = orders
-                .Where(o => o.OrderDate >= DateTime.Now.AddMonths(-5))
+            var cutoffDate = DateTime.Now.AddMonths(-5);
+            var sales = await _orderRepository.GetOrdersQueryable()
+                .Where(o => o.OrderDate >= cutoffDate)
                 .GroupBy(o => new { o.OrderDate.Year, o.OrderDate.Month })
                 .Select(g => new
                 {
@@ -135,7 +142,7 @@ namespace ECommerceApp.Services
                     TotalSales = g.Sum(o => o.TotalPrice)
                 })
                 .OrderBy(g => g.Month)
-                .ToList();
+                .ToListAsync();
 
             return new ChartData
             {
@@ -145,9 +152,9 @@ namespace ECommerceApp.Services
         }
         public async Task<ChartData> GetOrdersDataAsync()
         {
-            var orders = await _orderRepository.GetAllAsync();
-            var ordersData = orders
-                .Where(o => o.OrderDate >= DateTime.Now.AddDays(-7))
+            var cutoffDate = DateTime.Now.AddDays(-7);
+            var ordersData = await _orderRepository.GetOrdersQueryable()
+                .Where(o => o.OrderDate >= cutoffDate)
                 .GroupBy(o => o.OrderDate.Date)
                 .Select(g => new
                 {
@@ -155,7 +162,7 @@ namespace ECommerceApp.Services
                     OrderCount = g.Count()
                 })
                 .OrderBy(g => g.Date)
-                .ToList();
+                .ToListAsync();
 
             return new ChartData
             {
@@ -169,8 +176,16 @@ namespace ECommerceApp.Services
         }
         public async Task<IEnumerable<OrderUserViewModel>> GetOrdersByStatusAsync(string status)
         {
-            var orders = await _orderRepository.GetAllOrdersWithUsersAsync();
-            return orders.Where(o => o.Status == status);
+            return await _orderRepository.GetOrdersQueryable()
+                .Include(o => o.User)
+                .Where(o => o.Status == status)
+                .Select(o => new OrderUserViewModel
+                {
+                    Id = o.Id,
+                    Status = o.Status,
+                    CustomerName = o.User.FullName ?? "Deleted User"
+                })
+                .ToListAsync();
         }
     }
 }
