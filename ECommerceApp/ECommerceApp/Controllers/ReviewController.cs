@@ -60,12 +60,12 @@ namespace ECommerceApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> UpdateReview(int reveiwId, int rating, string? comment)
+        public async Task<IActionResult> UpdateReview(int reviewId, int rating, string? comment)
         {
             if (EnsureUserAuthenticated(out var userId) is IActionResult result)
                 return result;
 
-            bool done = await _reviewService.UpdateReviewAsync(userId, reveiwId, rating, comment);
+            bool done = await _reviewService.UpdateReviewAsync(userId, reviewId, rating, comment);
             if (!done)
             {
                 return BadRequest();
