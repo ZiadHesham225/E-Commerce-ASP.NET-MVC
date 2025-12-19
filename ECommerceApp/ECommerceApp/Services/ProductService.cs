@@ -55,24 +55,24 @@ namespace ECommerceApp.Services
 
         private IQueryable<Product> GetSortedProductsQuery(IQueryable<Product> query, string sortBy, bool descending = false)
         {
-            return sortBy.ToLower() switch
-            {
-                "name" => descending ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
-                "price" => descending ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
-                _ => query
-            };
+            return ApplySorting(query, sortBy, descending);
         }
 
         public IEnumerable<Product> GetSortedProducts(IEnumerable<Product> products, string sortBy, bool descending = false)
         {
-            products = sortBy.ToLower() switch
+            return ApplySorting(products, sortBy, descending);
+        }
+
+        private static T ApplySorting<T>(T source, string sortBy, bool descending) where T : IEnumerable<Product>
+        {
+            var sorted = sortBy.ToLower() switch
             {
-                "name" => descending ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name),
-                "price" => descending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price),
-                _ => products
+                "name" => descending ? source.OrderByDescending(p => p.Name) : source.OrderBy(p => p.Name),
+                "price" => descending ? source.OrderByDescending(p => p.Price) : source.OrderBy(p => p.Price),
+                _ => source
             };
 
-            return products;
+            return (T)sorted;
         }
 
         public IEnumerable<Product> GetPaginatedProducts(IEnumerable<Product> products, int pageNumber, int pageSize)
@@ -190,10 +190,10 @@ namespace ECommerceApp.Services
             product.Stock = productDto.Stock;
             product.CategoryId = productDto.CategoryId;
             product.Description = productDto.Description;
+            
             if (productDto.ImageFile != null)
             {
-                if (!string.IsNullOrEmpty(product.ImageUrl)) _imageService.DeleteImage(product.ImageUrl);
-                product.ImageUrl = await _imageService.SaveImageAsync(productDto.ImageFile, "products");
+                product.ImageUrl = await _imageService.UpdateImageAsync(productDto.ImageFile, product.ImageUrl, "products");
             }
 
             _productRepository.Update(product);

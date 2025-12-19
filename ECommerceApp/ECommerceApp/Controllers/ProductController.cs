@@ -23,6 +23,12 @@ namespace ECommerceApp.Controllers
             _productService = productService;
             _categoryRepository = categoryRepository;
         }
+
+        private async Task LoadCategoriesIntoViewBag()
+        {
+            var categories = await _categoryRepository.GetAllAsync();
+            ViewBag.Categories = categories;
+        }
         public async Task<IActionResult> Index(ProductFilterDto filter, int page = 1)
         {
             var isAdmin = User.IsInRole("Admin");
@@ -65,8 +71,7 @@ namespace ECommerceApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
-            var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = categories;
+            await LoadCategoriesIntoViewBag();
             return View();
         }
 
@@ -74,8 +79,7 @@ namespace ECommerceApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(ProductDto productDto)
         {
-            var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = categories;
+            await LoadCategoriesIntoViewBag();
             if (!ModelState.IsValid) return View(productDto);
             await _productService.AddProductAsync(productDto);
             return RedirectToAction("adminDisplay");
@@ -84,16 +88,14 @@ namespace ECommerceApp.Controllers
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null) return NotFound();
-            var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = categories;
+            await LoadCategoriesIntoViewBag();
             return View(product);
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(ProductDto productDto)
         {
-            var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = categories;
+            await LoadCategoriesIntoViewBag();
             if (!ModelState.IsValid) return View(productDto);
             await _productService.UpdateProductAsync(productDto);
             return RedirectToAction("adminDisplay");
